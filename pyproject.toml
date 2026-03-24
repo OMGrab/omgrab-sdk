@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "omgrab"
 dynamic = ["version"]
 description = "SDK for egocentric data collection with OMGrab hardware"
+readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 
@@ -20,6 +21,11 @@ dependencies = [
     "luma.oled>=3.14.0; sys_platform == 'linux'",
     "smbus2>=0.4.0; sys_platform == 'linux'",
 ]
+
+[project.urls]
+Documentation = "https://omgrab.github.io/omgrab-sdk/latest/"
+Repository = "https://github.com/OMGrab/omgrab-sdk"
+Issues = "https://github.com/OMGrab/omgrab-sdk/issues"
 
 [project.optional-dependencies]
 gui = [
