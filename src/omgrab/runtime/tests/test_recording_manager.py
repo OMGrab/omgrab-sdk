@@ -424,6 +424,14 @@ class TestHealthMonitor:
 
         assert mgr._on_device_unhealthy is not None
 
+    def test_set_on_recording_error_updates_callback(self, tmp_path: pathlib.Path):
+        """set_on_recording_error should store the callback."""
+        mgr = _make_manager(tmp_path)
+        calls: list[str] = []
+
+        mgr.set_on_recording_error(lambda: calls.append('called'))
+
+        assert mgr._on_recording_error is not None
 
 
 class TestRecordingName:

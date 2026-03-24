@@ -321,6 +321,49 @@ class TestDeviceUnhealthy:
         assert 'Camera' in alerts[0]
 
 
+class TestRecordingError:
+    def test_stops_recording_and_transitions_to_idle(self):
+        """Recording error during recording should stop and go to IDLE."""
+        sm, _, rec_mgr = _make_sm()
+        sm.handle_button_press()
+
+        sm.on_recording_error()
+
+        assert rec_mgr.stop_calls == 1
+        assert sm.get_current_state() == 'idle'
+
+    def test_ignored_when_not_recording(self):
+        """Recording error when not recording should be a no-op."""
+        sm, _, rec_mgr = _make_sm()
+
+        sm.on_recording_error()
+
+        assert rec_mgr.stop_calls == 0
+        assert sm.get_current_state() == 'idle'
+
+    def test_beeps_error_pattern(self):
+        """Recording error should trigger 5-beep error pattern."""
+        sm, fake_gpio, _ = _make_sm()
+        sm.handle_button_press()
+        fake_gpio.buzzer_beeps.clear()
+
+        sm.on_recording_error()
+
+        assert any(count == 5 for _, count in fake_gpio.buzzer_beeps)
+
+    def test_show_alert_callback_invoked(self):
+        """Recording error should invoke the alert callback with error message."""
+        sm, _, _ = _make_sm()
+        alerts: list[str] = []
+        sm.set_show_alert_callback(lambda msg: alerts.append(msg))
+        sm.handle_button_press()
+
+        sm.on_recording_error()
+
+        assert len(alerts) == 1
+        assert 'Error' in alerts[0]
+
+
 class TestNetworkChange:
     def test_stores_network_status(self):
         """on_network_change should update the internal network status."""

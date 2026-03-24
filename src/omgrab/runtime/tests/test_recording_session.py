@@ -3,6 +3,7 @@ import datetime
 import fractions
 import pathlib
 import shutil
+import threading
 import time
 
 import numpy as np
@@ -352,3 +353,51 @@ class TestCaptureThreadCrash:
             if 'capture thread crashed' in r.message
         ]
         assert len(crash_records) == 1
+
+
+@pytest.mark.skipif(not _has_ffmpeg, reason='ffmpeg not installed')
+class TestWriterErrorCallback:
+
+    def test_on_error_fired_when_encoder_crashes(
+            self, tmp_path: pathlib.Path, monkeypatch: pytest.MonkeyPatch):
+        """on_error should be called when the writer's encoder thread crashes."""
+        error_fired = threading.Event()
+
+        now = datetime.datetime.now()
+        frames = [
+            (np.zeros((4, 4, 3), dtype=np.uint8), now + datetime.timedelta(milliseconds=i * 33))
+            for i in range(10)
+        ]
+        cam = FakeCamera(frames=frames)
+
+        session = recording_session.RecordingSession(
+            recording_id='rec-err',
+            target_cameras=[cam],
+            stream_names=['rgb'],
+            stream_configs=_stream_configs(),
+            spool_dir=tmp_path,
+            start_chunk_callback=lambda *a: 'clip-1',
+            on_error=lambda: error_fired.set(),
+        )
+
+        session.start()
+        time.sleep(0.3)
+
+        # Bomb the encoder to crash it
+        assert session._parallel_writer is not None
+        writer = session._parallel_writer
+        if 'rgb' in writer._encoders:
+            def bombing_encode(data, timestamp_s):
+                raise RuntimeError('simulated encoder crash')
+
+            monkeypatch.setattr(writer._encoders['rgb'], 'encode', bombing_encode)
+
+            # Feed another frame to trigger the crash
+            eq = writer.get_encoder_queue('rgb')
+            ts = now + datetime.timedelta(seconds=10)
+            eq.put((np.zeros((4, 4, 3), dtype=np.uint8), ts))
+
+            assert error_fired.wait(timeout=5.0), 'on_error was never called'
+
+        session.stop()
+        session.join(timeout=5.0)

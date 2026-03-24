@@ -136,6 +136,7 @@ def main():
         recording_manager=recording_manager)
 
     recording_manager.set_on_device_unhealthy(state_machine_obj.on_device_unhealthy)
+    recording_manager.set_on_recording_error(state_machine_obj.on_recording_error)
 
     network_monitor = runtime.NetworkMonitor(runtime.NetworkMonitorConfig())
     network_monitor.register_on_change_callback(state_machine_obj.on_network_change)

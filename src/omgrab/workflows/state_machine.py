@@ -321,6 +321,30 @@ class StateMachine:
             self._show_alert_callback('Check Camera\nConnection')
         self._run_side_effects(side_effects)
 
+    def on_recording_error(self):
+        """Handle a recording error (e.g. encoder crash).
+
+        Called by RecordingManager when an encoder thread crashes. Stops
+        the recording, beeps an error pattern, and shows an alert.
+        """
+        logger.warning('Recording error callback triggered')
+
+        with self._lock:
+            if self._state != WorkflowState.RECORDING:
+                logger.debug(
+                    'Recording error but not in RECORDING state: %s',
+                    self._state)
+                return
+
+            side_effects = self._transition_to_locked(WorkflowState.IDLE)
+
+        self._recording_manager.stop_recording()
+
+        self._gpio.buzzer_beep(duration=0.1, count=5)
+        if self._show_alert_callback is not None:
+            self._show_alert_callback('Recording\nError')
+        self._run_side_effects(side_effects)
+
     def enter_wifi_setup(self) -> bool:
         """Enter WiFi setup state (triggered by long press).
 
