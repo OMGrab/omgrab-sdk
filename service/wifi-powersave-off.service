@@ -1,0 +1,17 @@
+[Unit]
+Description=Disable WiFi power saving
+Wants=network-online.target
+After=network-online.target
+# Only run once wlan0 actually exists
+BindsTo=sys-subsystem-net-devices-wlan0.device
+After=sys-subsystem-net-devices-wlan0.device
+
+[Service]
+Type=oneshot
+# Small delay to let the interface fully initialise after appearing
+ExecStartPre=/bin/sleep 2
+ExecStart=/sbin/iw dev wlan0 set power_save off
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

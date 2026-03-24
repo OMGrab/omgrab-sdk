@@ -1,0 +1,63 @@
+services:
+  wifi-connect:
+    build:
+      context: ./wifi-connect
+      dockerfile: Dockerfile.template
+    image: wifi-connect:latest
+    container_name: wifi-connect
+    network_mode: host
+    profiles:
+      - wifi-setup
+    cap_add:
+      - NET_ADMIN
+    restart: "no"
+    environment:
+      - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+      - WIFI_CONNECT_FORCE=${WIFI_CONNECT_FORCE:-false}
+    volumes:
+      # D-Bus for NetworkManager communication
+      - /var/run/dbus:/host/run/dbus
+      # NetworkManager dnsmasq config for captive portal DNS redirect
+      - /etc/NetworkManager/dnsmasq-shared.d:/etc/NetworkManager/dnsmasq-shared.d
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  omgrab-runtime:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
+      args:
+        - AGENT_VERSION=${AGENT_VERSION:-v0.0.1}
+    image: omgrab-runtime:latest
+    container_name: omgrab-runtime
+    restart: "no"
+    privileged: true # Required for GPIO access
+    network_mode: host # Required for WiFi status detection
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - DEVICE_ID=${DEVICE_ID:-unknown-device}
+      - OMGRAB_IMAGE=omgrab-runtime:latest
+      - WIFI_CONNECT_IMAGE=wifi-connect:latest
+      - DEPTHAI_LEVEL=warn
+      - WRIST_CAMERAS_ENABLED=false
+    volumes:
+      - /etc/resolv.conf:/etc/resolv.conf:ro
+      - /opt/omgrab/data:/data # Persistent data (spool, output)
+      - /opt/omgrab/button-trigger:/button-trigger # Remote button simulation
+      - /dev/bus/usb:/dev/bus/usb # USB device access
+      - /var/run/docker.sock:/var/run/docker.sock # Docker control for WiFi setup
+    devices:
+      - /dev/gpiochip0:/dev/gpiochip0 # Pi5 GPIO chip
+      - /dev/gpiochip0:/dev/gpiochip4 # Compatibility alias
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

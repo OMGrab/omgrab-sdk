@@ -1,0 +1,16 @@
+services:
+  wifi-connect:
+    build:
+      context: .
+      dockerfile: Dockerfile.template
+    image: us-central1-docker.pkg.dev/omgrab-dev/omgrab-dev-client-runtime/wifi-connect:latest
+    container_name: wifi-connect
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+    volumes:
+      - /var/run/dbus:/host/run/dbus
+      - /etc/NetworkManager/dnsmasq-shared.d:/etc/NetworkManager/dnsmasq-shared.d
+    restart: "no"

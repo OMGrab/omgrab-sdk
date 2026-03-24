@@ -1,0 +1,16 @@
+env/
+build/
+dist/
+*.egg-info
+*.pyc
+*.mp4
+*.svg
+settings.json
+.env
+.python-version
+*.mkv
+*.png
+*.DS_Store
+site/
+pytest-of-*/
+.coverage

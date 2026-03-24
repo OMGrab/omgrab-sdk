@@ -1,0 +1,124 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omgrab"
+dynamic = ["version"]
+description = "SDK for egocentric data collection with OMGrab hardware"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+
+dependencies = [
+    "numpy>=2.2",
+    "opencv-python-headless>=4.0.1",
+    "av>=13.0.0,<17.0.0",
+    "Pillow>=10.0.0",
+    "requests>=2.31.0",
+    "depthai>=3.3.0",
+    "gpiod>=2.0.0; sys_platform == 'linux'",
+    "luma.oled>=3.14.0; sys_platform == 'linux'",
+    "smbus2>=0.4.0; sys_platform == 'linux'",
+]
+
+[project.optional-dependencies]
+gui = [
+    "opencv-python>=4.0.1",
+]
+dev = [
+    "pytest>=8.0.0",
+    "mypy>=1.10.0",
+    "ruff>=0.9.0",
+]
+docs = [
+    "mkdocs-material>=9.6",
+    "mkdocstrings[python]>=0.29",
+    "mike>=2.1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src"]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "D",    # pydocstyle
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific rules
+    "Q",    # flake8-quotes
+]
+ignore = [
+    "UP045", # Optional[T] is preferred over T | None per project style
+    "D100",  # missing docstring in public module
+    "D104",  # missing docstring in public package __init__.py
+    "D105",  # missing docstring in magic method
+    "D107",  # missing docstring in __init__ (class docstring is sufficient)
+    "SIM105", # contextlib.suppress — try/except/pass is more explicit
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["D101", "D102", "D103", "N802"]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+docstring-quotes = "double"
+avoid-escape = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+force-single-line = true
+known-first-party = ["omgrab"]
+section-order = ["future", "typing", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.lint.isort.sections]
+typing = ["typing"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.coverage.run]
+omit = [
+    # Hardware-dependent: requires physical GPIO chip or I2C bus.
+    "src/omgrab/gpio/gpio_process.py",
+    "src/omgrab/display/screen_writer.py",
+    "src/omgrab/display/screen_manager.py",
+    # Hardware-dependent: requires USB camera or OAK-D device.
+    "src/omgrab/cameras/usb_camera.py",
+    "src/omgrab/cameras/usb_port.py",
+    # Standalone hardware test/debug scripts (not pytest tests).
+    "src/omgrab/display/test_alignment.py",
+    "src/omgrab/display/test_display.py",
+]
+
+[tool.coverage.report]
+exclude_also = [
+    "if TYPE_CHECKING:",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+markers = [
+    "hardware: tests that require real GPIO hardware (deselected by default, run with --hardware)",
+    "slow: tests that take >5s to run (deselected by default, run with --slow)",
+]
+
+[tool.setuptools_scm]

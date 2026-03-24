@@ -1,0 +1,33 @@
+# Virtual environments
+env/
+.venv/
+venv/
+
+# Python build artifacts
+*.egg-info
+*.pyc
+__pycache__/
+.pytest_cache/
+
+# Media files
+*.mp4
+*.mkv
+
+# Development and documentation
+.git/
+.github/
+tests/
+*.md
+Makefile
+*.sh
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+
+# Service files (installed separately)
+service/
+
+# Credentials (should never be in image)
+*.json

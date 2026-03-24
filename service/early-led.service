@@ -1,0 +1,14 @@
+[Unit]
+Description=Early boot LED indicator
+DefaultDependencies=no
+# Start as early as possible - just need root filesystem mounted
+After=-.mount
+Before=sysinit.target
+
+[Service]
+Type=simple
+ExecStart=/opt/omgrab/early-led.sh
+Restart=no
+
+[Install]
+WantedBy=sysinit.target

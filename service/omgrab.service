@@ -1,0 +1,23 @@
+[Unit]
+Description=OMGrab runtime
+After=docker.service systemd-udev-settle.service systemd-udevd.service NetworkManager.service
+Requires=docker.service systemd-udev-settle.service
+# WiFi setup via long-press (5 seconds) when needed
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/omgrab
+Environment="HOME=/root"
+ExecStartPre=-/bin/systemctl stop early-led.service
+ExecStartPre=/sbin/modprobe uvcvideo
+ExecStart=/usr/bin/docker compose up --abort-on-container-exit --remove-orphans
+ExecStop=/usr/bin/docker compose down
+TimeoutStartSec=0
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
