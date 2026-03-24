@@ -255,7 +255,7 @@ class VideoStreamEncoder:
 
         relative_time_s = timestamp_s - self._timestamp_origin_s
         assert self._stream.time_base is not None
-        pts = int(relative_time_s * self._stream.time_base.denominator)
+        pts = max(0, int(relative_time_s * self._stream.time_base.denominator))
 
         video_frame = av.VideoFrame.from_ndarray(
             frame, format=self._input_pixel_format, channel_last=True)
@@ -317,7 +317,7 @@ class DataStreamEncoder:
         """
         relative_time_s = timestamp_s - self._timestamp_origin_s
         assert self._stream.time_base is not None
-        pts = int(relative_time_s * self._stream.time_base.denominator)
+        pts = max(0, int(relative_time_s * self._stream.time_base.denominator))
 
         packet = av.Packet(data)
         packet.stream = self._stream
