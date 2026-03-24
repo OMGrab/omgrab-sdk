@@ -294,18 +294,30 @@ class ChunkedWriter:
             if tmp_path.exists():
                 tmp_path.unlink()
 
+    def _is_past_chunk_boundary(self, timestamp: datetime.datetime) -> bool:
+        """Check whether a timestamp is at or past the current chunk boundary.
+
+        Args:
+            timestamp: The timestamp to check.
+
+        Returns:
+            True if the timestamp is past the chunk boundary.
+        """
+        timestamp_s = timestamp.timestamp()
+        with self._chunk_start_lock:
+            if self._chunk_start_s is None:
+                return False
+            return timestamp_s - self._chunk_start_s >= self._chunk_length_s
+
     def _check_and_request_rotation(self, timestamp: datetime.datetime) -> bool:
         """Check if this timestamp exceeds the current chunk's boundary.
 
         Returns:
             True if rotation was requested.
         """
-        timestamp_s = timestamp.timestamp()
-        with self._chunk_start_lock:
-            assert self._chunk_start_s is not None
-            if timestamp_s - self._chunk_start_s >= self._chunk_length_s:
-                self._rotation_requested.set()
-                return True
+        if self._is_past_chunk_boundary(timestamp):
+            self._rotation_requested.set()
+            return True
         return False
 
     def _participate_in_rotation(self, stream_name: str,
@@ -402,7 +414,8 @@ class ChunkedWriter:
                 if not self._rotation_requested.is_set():
                     self._check_and_request_rotation(timestamp)
 
-                if self._rotation_requested.is_set():
+                if self._rotation_requested.is_set() and self._is_past_chunk_boundary(timestamp):
+                    # Flush remaining buffered data to old chunk, then rotate.
                     encoder = self._encoders.get(stream_name)
                     container = self._stream_containers.get(stream_name)
                     if encoder and container:
@@ -413,6 +426,7 @@ class ChunkedWriter:
                     if self._stop_event.is_set():
                         already_flushed = True
                         break
+                    # Fall through to encode this item to the NEW chunk.
 
                 encoder = self._encoders.get(stream_name)
                 if encoder is None:

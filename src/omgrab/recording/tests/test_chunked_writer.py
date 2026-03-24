@@ -988,3 +988,133 @@ class TestEncoderCrash:
         assert thread_exceptions == [], (
             f'Encoder crash leaked as unhandled exception: '
             f'{thread_exceptions}')
+
+
+@pytest.mark.skipif(not _has_ffmpeg, reason='ffmpeg not installed')
+class TestChunkedWriterSlowStreamRotation:
+    """Tests for rotation when streams cross the boundary at different times.
+
+    Reproduces the race where a fast stream crosses the chunk boundary
+    while a slower stream still has items before the boundary. Without
+    the per-stream boundary check, the slow stream enters rotation early,
+    and its next item gets a negative PTS in the new chunk.
+    """
+
+    def test_slow_stream_catches_up_before_rotating(self, tmp_path: pathlib.Path):
+        """Slow stream finishes pre-boundary items before entering rotation."""
+        base = _ts(year=2030, minute=10, second=0)
+        data_configs = {
+            'imu': chunked_writer.DataStreamConfig(metadata={'type': 'imu'}),
+        }
+        writer, chunk_ids = _make_chunked_writer(
+            tmp_path, sensor_stream_configs=data_configs, chunk_length_s=10)
+        writer.start()
+
+        rgb_q = writer.get_encoder_queue('rgb')
+        imu_q = writer.get_encoder_queue('imu')
+
+        # RGB: 5 frames in chunk 1, then 3 past the boundary.
+        for i in range(5):
+            ts = base + datetime.timedelta(seconds=i * 2)
+            rgb_q.put((_make_rgb_frame(), ts))
+        for i in range(3):
+            ts = base + datetime.timedelta(seconds=10 + i * 2)
+            rgb_q.put((_make_rgb_frame(), ts))
+
+        # IMU: items that lag behind — all before the boundary at first.
+        for i in range(80):
+            ts = base + datetime.timedelta(milliseconds=i * 100)
+            imu_q.put((b'{"ax":0.1}', ts))
+
+        # Then IMU items past the boundary.
+        for i in range(30):
+            ts = base + datetime.timedelta(seconds=10, milliseconds=i * 100)
+            imu_q.put((b'{"ax":0.2}', ts))
+
+        time.sleep(3.0)
+        writer.stop()
+
+        assert len(chunk_ids) == 2, (
+            f'Expected 2 chunks but got {len(chunk_ids)}')
+
+    def test_slow_stream_no_negative_pts_crash(self, tmp_path: pathlib.Path):
+        """A slow stream behind the boundary must not crash with negative PTS."""
+        thread_exceptions: list[tuple[str, Exception]] = []
+        original_excepthook = threading.excepthook
+
+        def capture_thread_exception(args):
+            thread_exceptions.append((args.thread.name, args.exc_value))
+
+        threading.excepthook = capture_thread_exception
+        try:
+            base = _ts(year=2030, minute=10, second=0)
+            data_configs = {
+                'imu': chunked_writer.DataStreamConfig(metadata={'type': 'imu'}),
+            }
+            writer, chunk_ids = _make_chunked_writer(
+                tmp_path, sensor_stream_configs=data_configs, chunk_length_s=5)
+            writer.start()
+
+            rgb_q = writer.get_encoder_queue('rgb')
+            imu_q = writer.get_encoder_queue('imu')
+
+            # RGB crosses boundary immediately.
+            for i in range(3):
+                ts = base + datetime.timedelta(seconds=i * 2)
+                rgb_q.put((_make_rgb_frame(), ts))
+            for i in range(3):
+                ts = base + datetime.timedelta(seconds=5 + i * 2)
+                rgb_q.put((_make_rgb_frame(), ts))
+
+            # IMU has many items BEFORE the boundary, then some after.
+            for i in range(50):
+                ts = base + datetime.timedelta(milliseconds=i * 100)
+                imu_q.put((b'{"ax":0.1}', ts))
+            for i in range(20):
+                ts = base + datetime.timedelta(seconds=5, milliseconds=i * 100)
+                imu_q.put((b'{"ax":0.2}', ts))
+
+            time.sleep(3.0)
+            writer.stop()
+
+            assert len(chunk_ids) == 2
+            assert thread_exceptions == [], (
+                f'Thread exceptions (likely negative PTS): {thread_exceptions}')
+        finally:
+            threading.excepthook = original_excepthook
+
+    def test_multi_video_slow_stream_rotation(self, tmp_path: pathlib.Path):
+        """Two video streams where depth lags behind RGB at the boundary."""
+        base = _ts(year=2030, minute=10, second=0)
+        writer, chunk_ids = _make_chunked_writer(
+            tmp_path, stream_configs=_parallel_multi_stream_configs(),
+            chunk_length_s=10)
+        writer.start()
+
+        rgb_q = writer.get_encoder_queue('rgb')
+        depth_q = writer.get_encoder_queue('depth')
+
+        # RGB: crosses the boundary
+        for i in range(5):
+            ts = base + datetime.timedelta(seconds=i * 2)
+            rgb_q.put((_make_rgb_frame(), ts))
+        for i in range(5):
+            ts = base + datetime.timedelta(seconds=10 + i * 2)
+            rgb_q.put((_make_rgb_frame(), ts))
+
+        # Depth: lags behind — items before boundary first, then past
+        for i in range(5):
+            ts = base + datetime.timedelta(seconds=i * 2)
+            depth_q.put((_make_depth_frame(), ts))
+
+        time.sleep(0.5)
+
+        for i in range(5):
+            ts = base + datetime.timedelta(seconds=10 + i * 2)
+            depth_q.put((_make_depth_frame(), ts))
+
+        time.sleep(3.0)
+        writer.stop()
+
+        assert len(chunk_ids) == 2, (
+            f'Expected 2 chunks but got {len(chunk_ids)}')
