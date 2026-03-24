@@ -204,6 +204,27 @@ class TestStreamEncoderEncoding:
 
 
 
+class TestPTSClamping:
+
+    def test_video_encoder_clamps_negative_pts_to_zero(self, tmp_path: pathlib.Path):
+        """VideoStreamEncoder should clamp PTS to 0 for tiny negative relative time."""
+        origin = 1774604451.123456 + 60.0
+        timestamp_s = origin - 1e-10
+
+        output = tmp_path / 'clamp.mkv'
+        container = av.open(str(output), mode='w', format='matroska')
+        encoder = _make_encoder(container, timestamp_origin_s=origin)
+
+        pkts = encoder.encode(_make_rgb_frame(), timestamp_s)
+        for pkt in pkts:
+            assert pkt.pts >= 0, f'Video PTS should be >= 0, got {pkt.pts}'
+            container.mux(pkt)
+
+        for pkt in encoder.flush():
+            container.mux(pkt)
+        container.close()
+
+
 class TestTimeBase:
 
     def test_time_base_is_microsecond(self, tmp_path: pathlib.Path):
@@ -291,6 +312,30 @@ class TestDataStreamEncoder:
             container.mux(pkt)
         for pkt in video.flush():
             container.mux(pkt)
+        container.close()
+
+    def test_slightly_negative_relative_time_clamped_to_zero(self):
+        """PTS must be clamped to 0 when floating point gives tiny negative."""
+        # Simulate the chunk rotation edge case: origin is computed as
+        # old_origin + chunk_length, but due to IEEE 754 rounding,
+        # timestamp - new_origin can be slightly negative.
+        origin = 1774604451.123456 + 60.0  # new chunk origin after rotation
+        # Construct a timestamp that passes the boundary check
+        # (timestamp - old_origin >= 60.0) but produces negative
+        # relative_time when subtracted from new_origin.
+        timestamp_s = origin - 1e-10  # tiny negative relative time
+
+        import io
+        buf = io.BytesIO()
+        container = av.open(buf, mode='w', format='matroska')
+        data = py_av_writer.DataStreamEncoder(
+            container=container,
+            timestamp_origin_s=origin,
+            codec='ass')
+
+        pkts = data.encode(b'{"ax":0.1}', timestamp_s)
+        assert pkts[0].pts == 0, (
+            f'Expected PTS=0 for slightly-before-origin timestamp, got {pkts[0].pts}')
         container.close()
 
 
