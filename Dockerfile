@@ -21,11 +21,12 @@ WORKDIR /app
 
 COPY pyproject.toml ./
 RUN mkdir -p src/omgrab && touch src/omgrab/__init__.py \
-    && pip install --no-cache-dir . \
+    && SETUPTOOLS_SCM_PRETEND_VERSION=0.0.0 pip install --no-cache-dir . \
     && pip uninstall -y omgrab
 
 COPY src/ ./src/
-RUN pip install --no-cache-dir --no-deps .
+ARG SETUPTOOLS_SCM_PRETEND_VERSION=0.0.0
+RUN SETUPTOOLS_SCM_PRETEND_VERSION=${SETUPTOOLS_SCM_PRETEND_VERSION} pip install --no-cache-dir --no-deps .
 
 COPY app/ ./app/
 
