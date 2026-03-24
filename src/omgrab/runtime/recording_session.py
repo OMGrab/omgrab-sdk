@@ -52,6 +52,7 @@ class RecordingSession:
         sensor_stream_configs: dict[str, chunked_writer.DataStreamConfig] | None = None,
         chunk_length_s: float = 60.0,
         max_queue_size: int = 400,
+        on_error: Optional[Callable[[], None]] = None,
     ):
         """Initialize the recording session.
 
@@ -68,6 +69,9 @@ class RecordingSession:
             sensor_stream_configs: Optional configuration for each sensor stream.
             chunk_length_s: Duration of each recording chunk in seconds.
             max_queue_size: Maximum size per encoder queue.
+            on_error: Optional callback invoked when the writer crashes.
+                Called once (even if multiple streams fail). Propagates
+                the error upward so the recording can be stopped.
         """
         if len(target_cameras) != len(stream_names):
             raise ValueError(
@@ -92,6 +96,8 @@ class RecordingSession:
         self._start_chunk_callback = start_chunk_callback
         self._chunk_length_s = chunk_length_s
         self._max_queue_size = max_queue_size
+        self._on_error = on_error
+        self._error_fired = threading.Event()
 
         # Thread management
         self._capture_threads: list[threading.Thread] = []
@@ -146,6 +152,7 @@ class RecordingSession:
             sensor_stream_configs=self._sensor_stream_configs,
             chunk_length_s=self._chunk_length_s,
             max_encoder_queue_size=self._max_queue_size,
+            on_error=self._handle_writer_error,
         )
         self._parallel_writer.start()
 
@@ -237,6 +244,20 @@ class RecordingSession:
             self.stop()
 
         return not self.is_alive
+
+    def _handle_writer_error(self, stream_name: str):
+        """Handle a writer/encoder error by stopping capture and propagating.
+
+        Args:
+            stream_name: The stream whose encoder crashed.
+        """
+        logger.error(
+            'Session %s: writer error on stream %s, stopping capture',
+            self._recording_id, stream_name)
+        self._stop_event.set()
+        if self._on_error is not None and not self._error_fired.is_set():
+            self._error_fired.set()
+            self._on_error()
 
     def _run_capture_loop(
         self,

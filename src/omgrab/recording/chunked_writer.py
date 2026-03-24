@@ -73,7 +73,8 @@ class ChunkedWriter:
             start_chunk_callback: Optional[StartChunkCallback] = None,
             sensor_stream_configs: Optional[dict[str, DataStreamConfig]] = None,
             chunk_length_s: float = 60.0,
-            max_encoder_queue_size: int = 200):
+            max_encoder_queue_size: int = 200,
+            on_error: Optional[Callable[[str], None]] = None):
         """Initialize the chunked writer.
 
         Args:
@@ -88,6 +89,9 @@ class ChunkedWriter:
                 when the first frame arrives; subsequent chunks advance by
                 this amount.
             max_encoder_queue_size: Max queue size per encoder thread.
+            on_error: Optional callback invoked when an encoder thread
+                crashes. Called with the stream name that crashed. Fired on
+                a separate daemon thread to avoid deadlock.
         """
         for video_cfg in stream_configs.values():
             _verify_metadata(video_cfg.metadata)
@@ -137,6 +141,7 @@ class ChunkedWriter:
         self._encoder_threads: list[threading.Thread] = []
         self._stop_event = threading.Event()
         self._started = False
+        self._on_error = on_error
 
     def get_encoder_queue(self, stream_name: str) -> queue.Queue:
         """Get the input queue for a stream's encoder thread."""
@@ -446,6 +451,21 @@ class ChunkedWriter:
                 with self._rotation_condition:
                     self._rotation_condition.notify_all()
                 self._close_stream_container(stream_name)
+                if self._on_error is not None:
+                    callback = self._on_error
+
+                    def _fire_error(cb=callback, sn=stream_name):
+                        try:
+                            cb(sn)
+                        except Exception:
+                            logger.error(
+                                'on_error callback raised', exc_info=True)
+
+                    threading.Thread(
+                        target=_fire_error,
+                        daemon=True,
+                        name=f'encoder-error-{stream_name}',
+                    ).start()
                 return
 
         if not already_flushed:

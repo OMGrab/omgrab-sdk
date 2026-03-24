@@ -30,6 +30,9 @@ RecordingID = str
 # Callback type for device unhealthy notification
 OnDeviceUnhealthyCallback = Callable[[], None]
 
+# Callback type for recording error notification
+OnRecordingErrorCallback = Callable[[], None]
+
 # Callback type for recording complete notification
 OnRecordingCompleteCallback = Callable[[pathlib.Path], None]
 
@@ -133,6 +136,7 @@ class RecordingManager:
         self._spool_dir = spool_dir
         self._output_dir = output_dir
         self._on_device_unhealthy = on_device_unhealthy
+        self._on_recording_error: Optional[OnRecordingErrorCallback] = None
         self._on_recording_complete = on_recording_complete
 
         self._lock = threading.Lock()
@@ -176,6 +180,15 @@ class RecordingManager:
                 recording, or None to clear the callback.
         """
         self._on_device_unhealthy = callback
+
+    def set_on_recording_error(self, callback: Optional[OnRecordingErrorCallback]):
+        """Set the callback for recording error events (e.g. encoder crash).
+
+        Args:
+            callback: Callback to invoke when a recording error occurs,
+                or None to clear the callback.
+        """
+        self._on_recording_error = callback
 
     def start_recording(self) -> bool:
         """Start a new recording session.
@@ -250,6 +263,7 @@ class RecordingManager:
             sensor_stream_configs=self._sensor_stream_configs,
             chunk_length_s=self._config.chunk_length_s,
             max_queue_size=self._config.max_queue_size,
+            on_error=self._handle_recording_error,
         )
 
         try:
@@ -427,6 +441,30 @@ class RecordingManager:
 
         if still_alive:
             logger.debug('%d sessions still draining', len(still_alive))
+
+    def _handle_recording_error(self):
+        """Handle a recording error (encoder crash) by propagating upward.
+
+        Fires on_recording_error on a separate daemon thread to avoid
+        deadlock, since the callback chain may call stop_recording() which
+        joins the threads that triggered this handler.
+        """
+        logger.warning('Recording error detected, propagating')
+        if self._on_recording_error is not None:
+            callback = self._on_recording_error
+
+            def _safe_callback(cb=callback):
+                try:
+                    cb()
+                except Exception:
+                    logger.error(
+                        'Recording-error callback raised', exc_info=True)
+
+            threading.Thread(
+                target=_safe_callback,
+                daemon=True,
+                name='recording-error-callback',
+            ).start()
 
     def _start_health_monitor(self):
         """Start the device health monitor thread."""

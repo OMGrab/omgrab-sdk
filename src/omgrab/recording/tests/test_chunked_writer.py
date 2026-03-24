@@ -6,6 +6,7 @@ import queue
 import shutil
 import threading
 import time
+from collections.abc import Callable
 
 import numpy as np
 import pytest
@@ -153,6 +154,7 @@ def _make_chunked_writer(
         name: str = 'rec-1',
         chunk_length_s: float = 60.0,
         max_encoder_queue_size: int = 200,
+        on_error: Callable[[str], None] | None = None,
 ) -> tuple[chunked_writer.ChunkedWriter, list[str]]:
     """Create a ChunkedWriter and return it with the chunk IDs list."""
     if stream_configs is None:
@@ -176,6 +178,7 @@ def _make_chunked_writer(
         sensor_stream_configs=sensor_stream_configs,
         chunk_length_s=chunk_length_s,
         max_encoder_queue_size=max_encoder_queue_size,
+        on_error=on_error,
     )
     return writer, chunk_ids_returned
 
@@ -988,6 +991,45 @@ class TestEncoderCrash:
         assert thread_exceptions == [], (
             f'Encoder crash leaked as unhandled exception: '
             f'{thread_exceptions}')
+
+    def test_on_error_callback_fired_on_crash(
+            self, tmp_path: pathlib.Path, monkeypatch: pytest.MonkeyPatch):
+        """on_error callback should be fired with the stream name when encoder crashes."""
+        error_events: list[str] = []
+        error_fired = threading.Event()
+
+        def on_error(stream_name: str):
+            error_events.append(stream_name)
+            error_fired.set()
+
+        base = _ts(year=2030, minute=10, second=0)
+        writer, _ = _make_chunked_writer(
+            tmp_path, stream_configs=_parallel_multi_stream_configs(),
+            on_error=on_error)
+        writer.start()
+
+        rgb_q = writer.get_encoder_queue('rgb')
+        depth_q = writer.get_encoder_queue('depth')
+
+        for i in range(3):
+            ts = base + datetime.timedelta(seconds=i)
+            rgb_q.put((_make_rgb_frame(), ts))
+            depth_q.put((_make_depth_frame(), ts))
+
+        time.sleep(0.5)
+        assert 'rgb' in writer._encoders
+
+        def bombing_encode(data, timestamp_s):
+            raise RuntimeError('simulated encoder crash')
+
+        monkeypatch.setattr(writer._encoders['rgb'], 'encode', bombing_encode)
+
+        ts = base + datetime.timedelta(seconds=10)
+        rgb_q.put((_make_rgb_frame(), ts))
+
+        assert error_fired.wait(timeout=3.0), 'on_error was never called'
+        assert error_events == ['rgb']
+        writer.stop()
 
 
 @pytest.mark.skipif(not _has_ffmpeg, reason='ffmpeg not installed')
