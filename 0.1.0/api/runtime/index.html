@@ -1,0 +1,6989 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="SDK for egocentric data collection with OMGrab hardware">
+      
+      
+      
+        <link rel="canonical" href="https://omgrab.github.io/omgrab-sdk/0.1.0/api/runtime/">
+      
+      
+        <link rel="prev" href="../recording/">
+      
+      
+        <link rel="next" href="../workflows/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>runtime - OMGrab SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#runtime" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="OMGrab SDK" class="md-header__button md-logo" aria-label="OMGrab SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OMGrab SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              runtime
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OMGrab/omgrab-sdk" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="OMGrab SDK" class="md-nav__button md-logo" aria-label="OMGrab SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    OMGrab SDK
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OMGrab/omgrab-sdk" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runtime-app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Device Runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cameras/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cameras
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recording/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    recording
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    runtime
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_manager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="recording_manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingConfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingController" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingController
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RecordingController">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingController.start_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingController.stop_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RecordingManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.is_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.active_recording_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        active_recording_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.recording_started_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_started_at
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.set_on_device_unhealthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_on_device_unhealthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.start_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.stop_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shutdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_session
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="recording_session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingSession
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RecordingSession">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.stopped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stopped
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.recording_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.recording_length_s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_length_s
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.is_alive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_alive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        join
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        network_monitor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="network_monitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.Status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.Config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.Snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetworkMonitor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NetworkMonitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.wake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wake
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.register_on_change_callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        register_on_change_callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shutdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.check_once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check_once
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        device_status
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="device_status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.StateProvider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StateProvider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="StateProvider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.StateProvider.get_current_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_current_state
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.StorageInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StorageInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.CPUInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPUInfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CPUInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.CPUInfo.__str__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __str__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.MemoryInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MemoryInfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MemoryInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.MemoryInfo.__str__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __str__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.NetworkInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetworkInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.RecordingInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.BatteryInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BatteryInfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BatteryInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.BatteryInfo.__str__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __str__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DeviceStatus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SystemMetricsProvider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SystemMetricsProvider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_cpu_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_cpu_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_memory_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_memory_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_storage_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_storage_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_wifi_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_wifi_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DeviceStatusManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DeviceStatusManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.set_state_machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_state_machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.set_recording_manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_recording_manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.set_network_monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_network_monitor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shutdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.get_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.get_status_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_status_dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        battery_monitor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="battery_monitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BatteryStatus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BatteryStatus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryStatus.__str__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __str__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryMonitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BatteryMonitor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BatteryMonitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryMonitor.available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        available
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryMonitor.get_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.gpio_manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gpio_manager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gpio_manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.gpio_manager.ButtonConfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ButtonConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.gpio_manager.button_monitor_loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        button_monitor_loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wifi_connect
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="wifi_connect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect.WifiManager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WifiManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WifiManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect.WifiManager.start_wifi_connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_wifi_connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect.WifiManager.stop_wifi_connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop_wifi_connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect.WifiManager.is_wifi_connect_running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_wifi_connect_running
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gpio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gpio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    display
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_manager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="recording_manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingConfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingController" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingController
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RecordingController">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingController.start_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingController.stop_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RecordingManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.is_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.active_recording_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        active_recording_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.recording_started_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_started_at
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.set_on_device_unhealthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_on_device_unhealthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.start_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.stop_recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop_recording
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_manager.RecordingManager.shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shutdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_session
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="recording_session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingSession
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RecordingSession">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.stopped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stopped
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.recording_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.recording_length_s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recording_length_s
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.is_alive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_alive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.recording_session.RecordingSession.join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        join
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        network_monitor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="network_monitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.Status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.Config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.Snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetworkMonitor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NetworkMonitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.wake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wake
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.register_on_change_callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        register_on_change_callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shutdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.network_monitor.NetworkMonitor.check_once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check_once
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        device_status
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="device_status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.StateProvider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StateProvider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="StateProvider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.StateProvider.get_current_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_current_state
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.StorageInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StorageInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.CPUInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPUInfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CPUInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.CPUInfo.__str__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __str__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.MemoryInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MemoryInfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MemoryInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.MemoryInfo.__str__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __str__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.NetworkInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetworkInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.RecordingInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecordingInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.BatteryInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BatteryInfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BatteryInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.BatteryInfo.__str__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __str__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DeviceStatus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SystemMetricsProvider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SystemMetricsProvider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_cpu_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_cpu_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_memory_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_memory_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_storage_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_storage_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_wifi_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_wifi_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DeviceStatusManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DeviceStatusManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.set_state_machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_state_machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.set_recording_manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_recording_manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.set_network_monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_network_monitor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shutdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.get_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.device_status.DeviceStatusManager.get_status_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_status_dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        battery_monitor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="battery_monitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BatteryStatus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BatteryStatus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryStatus.__str__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __str__
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryMonitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BatteryMonitor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BatteryMonitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryMonitor.available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        available
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.battery_monitor.BatteryMonitor.get_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.gpio_manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gpio_manager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gpio_manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.gpio_manager.ButtonConfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ButtonConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.gpio_manager.button_monitor_loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        button_monitor_loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wifi_connect
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="wifi_connect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect.WifiManager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WifiManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WifiManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect.WifiManager.start_wifi_connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_wifi_connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect.WifiManager.stop_wifi_connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop_wifi_connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#omgrab.runtime.wifi_connect.WifiManager.is_wifi_connect_running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_wifi_connect_running
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="runtime">runtime<a class="headerlink" href="#runtime" title="Permanent link">&para;</a></h1>
+<p>Recording lifecycle, monitoring, and device management.</p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="omgrab.runtime.recording_manager" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>omgrab.runtime.recording_manager</code>
+
+
+<a href="#omgrab.runtime.recording_manager" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Recording manager that owns capture device and recording sessions.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.recording_manager.RecordingConfig" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">RecordingConfig</span><span class="p">(</span><span class="n">device_ready_timeout_s</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">health_check_interval_s</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">session_join_timeout_s</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">chunk_length_s</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.recording_manager.RecordingConfig" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Configuration for the recording manager.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.recording_manager.RecordingConfig.device_ready_timeout_s">device_ready_timeout_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Max time to wait for the capture device
+to become ready before starting a recording.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.recording_manager.RecordingConfig.health_check_interval_s">health_check_interval_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Interval between device health checks
+during recording.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.recording_manager.RecordingConfig.session_join_timeout_s">session_join_timeout_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Timeout for joining finished recording
+session threads during shutdown.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.recording_manager.RecordingConfig.chunk_length_s">chunk_length_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Duration of each recording chunk in seconds.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.recording_manager.RecordingConfig.max_queue_size">max_queue_size</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum size per encoder queue.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.recording_manager.RecordingController" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>RecordingController</code>
+
+
+<a href="#omgrab.runtime.recording_manager.RecordingController" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="typing.Protocol">Protocol</span></code></p>
+
+
+
+        <p>Minimal interface for controlling recording start/stop.</p>
+<p>Used by StateMachine to decouple from the full RecordingManager.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingController.start_recording" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">start_recording</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.recording_manager.RecordingController.start_recording" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Start a recording. Returns True on success.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingController.stop_recording" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">stop_recording</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.recording_manager.RecordingController.stop_recording" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Stop the active recording.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.recording_manager.RecordingManager" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">RecordingManager</span><span class="p">(</span><span class="n">devices</span><span class="p">,</span> <span class="n">target_cameras</span><span class="p">,</span> <span class="n">stream_names</span><span class="p">,</span> <span class="n">stream_configs</span><span class="p">,</span> <span class="n">spool_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_device_unhealthy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_recording_complete</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_stream_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_stream_configs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.recording_manager.RecordingManager" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Manages recording sessions and capture device lifecycles.</p>
+<p>Owns:
+- Capture devices (opened/closed per recording)
+- Active recording session (at most one at a time)
+- Finished sessions pending cleanup</p>
+<p>The StateMachine calls start_recording/stop_recording; this class
+handles all the threading and device management internally.</p>
+
+        <p>Initialize the recording manager.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>devices</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            CaptureDevice (omgrab.devices.capture_device.CaptureDevice)" href="../devices/#omgrab.devices.capture_device.CaptureDevice">CaptureDevice</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Capture devices to use for recording. All must be
+connected for recording to start, and all are monitored
+for health during recording.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_cameras</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="              Camera(config, enforce_frame_timing=True) (omgrab.cameras.cameras.Camera)" href="../cameras/#omgrab.cameras.cameras.Camera">Camera</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of cameras to capture from.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>stream_names</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of stream names, one per camera.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>stream_configs</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="omgrab.recording.chunked_writer.VideoStreamConfig">VideoStreamConfig</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Configuration for each video stream.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>spool_dir</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory to write temporary video chunks.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>output_dir</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory to write merged final recordings.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>config</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="              RecordingConfig(device_ready_timeout_s=7.5, health_check_interval_s=1.0, session_join_timeout_s=10.0, chunk_length_s=60.0, max_queue_size=400)
+
+  
+      dataclass
+   (omgrab.runtime.recording_manager.RecordingConfig)" href="#omgrab.runtime.recording_manager.RecordingConfig">RecordingConfig</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Recording configuration.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_device_unhealthy</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="omgrab.runtime.recording_manager.OnDeviceUnhealthyCallback">OnDeviceUnhealthyCallback</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional callback invoked when any device
+becomes unhealthy during recording.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_recording_complete</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="omgrab.runtime.recording_manager.OnRecordingCompleteCallback">OnRecordingCompleteCallback</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional callback invoked when a recording
+has been merged. Called with the path to the merged MKV file.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sensors</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            Sensor (omgrab.sensors.sensor.Sensor)" href="../sensors/#omgrab.sensors.sensor.Sensor">Sensor</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional list of sensors (e.g., IMU).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sensor_stream_names</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional list of sensor stream names, one per sensor.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sensor_stream_configs</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="omgrab.recording.chunked_writer.DataStreamConfig">DataStreamConfig</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional configuration for each sensor stream.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingManager.is_recording" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">is_recording</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.recording_manager.RecordingManager.is_recording" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>True if there is an active session currently capturing.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingManager.active_recording_id" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">active_recording_id</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.recording_manager.RecordingManager.active_recording_id" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the ID of the active recording, or None if not recording.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingManager.recording_started_at" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">recording_started_at</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.recording_manager.RecordingManager.recording_started_at" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the start time of the active recording, or None if not recording.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingManager.set_on_device_unhealthy" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">set_on_device_unhealthy</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.recording_manager.RecordingManager.set_on_device_unhealthy" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set the callback for device unhealthy events.</p>
+<p>This allows setting the callback after construction, which is needed
+when there are circular dependencies (e.g., StateMachine needs
+RecordingManager and vice versa).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>callback</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="omgrab.runtime.recording_manager.OnDeviceUnhealthyCallback">OnDeviceUnhealthyCallback</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Callback to invoke when device becomes unhealthy during
+recording, or None to clear the callback.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingManager.start_recording" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">start_recording</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.recording_manager.RecordingManager.start_recording" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Start a new recording session.</p>
+<p>Opens the capture device, creates a new session with timestamp-based
+recording name, and starts threads.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if recording started successfully, False otherwise.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingManager.stop_recording" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">stop_recording</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.recording_manager.RecordingManager.stop_recording" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Stop the current recording session.</p>
+<p>Stops capture threads immediately, then merges chunks into a final
+MKV file. The session is moved to finished_sessions for later cleanup.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_manager.RecordingManager.shutdown" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">shutdown</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.recording_manager.RecordingManager.shutdown" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Shutdown the manager: stop active session and join all threads.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="omgrab.runtime.recording_session" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>omgrab.runtime.recording_session</code>
+
+
+<a href="#omgrab.runtime.recording_session" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Recording session that owns capture threads and a parallel writer.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.recording_session.RecordingSession" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">RecordingSession</span><span class="p">(</span><span class="n">recording_id</span><span class="p">,</span> <span class="n">target_cameras</span><span class="p">,</span> <span class="n">stream_names</span><span class="p">,</span> <span class="n">stream_configs</span><span class="p">,</span> <span class="n">spool_dir</span><span class="p">,</span> <span class="n">start_chunk_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_stream_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_stream_configs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">chunk_length_s</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.recording_session.RecordingSession" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>A single recording session with isolated threads and parallel writer.</p>
+<p>Owns:
+- Per-stream encoder queues (via ChunkedWriter)
+- Capture threads (one per camera/data source)
+- Encoder threads + mux thread (via ChunkedWriter)</p>
+<p>Lifecycle:
+- start(): Start capture threads and parallel writer
+- stop(): Signal capture threads to stop; writer continues draining
+- join(): Wait for all threads to finish</p>
+
+        <p>Initialize the recording session.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>recording_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique ID for this recording (fixed for session lifetime).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_cameras</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="              Camera(config, enforce_frame_timing=True) (omgrab.cameras.cameras.Camera)" href="../cameras/#omgrab.cameras.cameras.Camera">Camera</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of cameras to capture from.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>stream_names</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of stream names, one per camera.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>stream_configs</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="omgrab.recording.chunked_writer.VideoStreamConfig">VideoStreamConfig</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Configuration for each video stream.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>spool_dir</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory to write video files.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>start_chunk_callback</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="omgrab.recording.chunked_writer.StartChunkCallback">StartChunkCallback</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional callback to generate chunk IDs.
+When None, ChunkedWriter generates sequential 5-digit IDs.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sensors</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            Sensor (omgrab.sensors.sensor.Sensor)" href="../sensors/#omgrab.sensors.sensor.Sensor">Sensor</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional list of sensors (e.g., IMU).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sensor_stream_names</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional list of sensor stream names, one per sensor.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sensor_stream_configs</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="omgrab.recording.chunked_writer.DataStreamConfig">DataStreamConfig</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional configuration for each sensor stream.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>chunk_length_s</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Duration of each recording chunk in seconds.</p>
+              </div>
+            </td>
+            <td>
+                  <code>60.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>max_queue_size</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum size per encoder queue.</p>
+              </div>
+            </td>
+            <td>
+                  <code>400</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.recording_session.RecordingSession.stopped" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">stopped</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.recording_session.RecordingSession.stopped" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>True if the session has been stopped.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.recording_session.RecordingSession.recording_id" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">recording_id</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.recording_session.RecordingSession.recording_id" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the recording ID for this session.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.recording_session.RecordingSession.recording_length_s" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">recording_length_s</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.recording_session.RecordingSession.recording_length_s" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Intended recording duration in seconds (capture start to stop signal).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.recording_session.RecordingSession.is_alive" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">is_alive</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.recording_session.RecordingSession.is_alive" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>True if any thread is still running.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_session.RecordingSession.start" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">start</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.recording_session.RecordingSession.start" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Start capture threads and parallel writer.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="RuntimeError">RuntimeError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If already started.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_session.RecordingSession.stop" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">stop</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.recording_session.RecordingSession.stop" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Stop the recording session.</p>
+<p>Joins capture threads, then stops the parallel writer (which joins
+encoder threads and merges the final chunk). Blocks until complete.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.recording_session.RecordingSession.join" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">join</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.recording_session.RecordingSession.join" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Wait for all threads to finish (including writer drain).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>timeout</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum time to wait in seconds, or None for no timeout.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if all threads finished, False if timeout expired.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="omgrab.runtime.network_monitor" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>omgrab.runtime.network_monitor</code>
+
+
+<a href="#omgrab.runtime.network_monitor" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Network connectivity monitor with hysteresis and backoff.</p>
+<p>Simplified for SDK use: checks local network and internet reachability.
+No heartbeats or API probes.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.network_monitor.Status" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Status</code>
+
+
+<a href="#omgrab.runtime.network_monitor.Status" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="enum.Enum">Enum</span></code></p>
+
+
+
+        <p>Discrete network health states in increasing order of quality.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.network_monitor.Config" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">Config</span><span class="p">(</span><span class="n">dns_timeout</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">tcp_timeout</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">internet_check_host</span><span class="o">=</span><span class="s1">&#39;dns.google&#39;</span><span class="p">,</span> <span class="n">internet_check_port</span><span class="o">=</span><span class="mi">443</span><span class="p">,</span> <span class="n">down_after_failures</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">up_after_successes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">poll_ok_s</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">poll_min_s</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">poll_max_s</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">jitter_frac</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.network_monitor.Config" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Configuration values controlling probes, hysteresis, and backoff.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.dns_timeout">dns_timeout</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Timeout in seconds for DNS resolution probes.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.tcp_timeout">tcp_timeout</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Timeout in seconds for TCP connection probes.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.internet_check_host">internet_check_host</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Hostname used for internet reachability checks.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.internet_check_port">internet_check_port</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>TCP port used for internet reachability checks.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.down_after_failures">down_after_failures</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Consecutive probe failures before transitioning down.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.up_after_successes">up_after_successes</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Consecutive probe successes before transitioning up.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.poll_ok_s">poll_ok_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Polling interval in seconds when the network is healthy.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.poll_min_s">poll_min_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum polling interval in seconds during backoff.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.poll_max_s">poll_max_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum polling interval in seconds during backoff.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Config.jitter_frac">jitter_frac</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Fraction of the polling interval added as random jitter.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.network_monitor.Snapshot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">Snapshot</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">detail</span><span class="p">,</span> <span class="n">changed_at</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.network_monitor.Snapshot" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Immutable snapshot of the last stable network state.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Snapshot.status">status</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            Status (omgrab.runtime.network_monitor.Status)" href="#omgrab.runtime.network_monitor.Status">Status</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Current network health level.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Snapshot.detail">detail</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Human-readable description of the last probe result.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.network_monitor.Snapshot.changed_at">changed_at</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Monotonic timestamp when the status last changed.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.network_monitor.NetworkMonitor" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">NetworkMonitor</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">iface</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.network_monitor.NetworkMonitor" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Stateful network monitor with hysteresis and backoff.</p>
+
+        <p>Initialize the monitor with configuration and optional interface pinning.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>cfg</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              Config(dns_timeout=1.0, tcp_timeout=1.0, internet_check_host='dns.google', internet_check_port=443, down_after_failures=3, up_after_successes=1, poll_ok_s=5.0, poll_min_s=1.0, poll_max_s=20.0, jitter_frac=0.1)
+
+  
+      dataclass
+   (omgrab.runtime.network_monitor.Config)" href="#omgrab.runtime.network_monitor.Config">Config</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Configuration for network monitoring.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>iface</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional network interface to monitor.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.network_monitor.NetworkMonitor.snapshot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">snapshot</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.network_monitor.NetworkMonitor.snapshot" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the current stable snapshot.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.network_monitor.NetworkMonitor.wake" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">wake</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.network_monitor.NetworkMonitor.wake" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Wake the monitor loop early.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.network_monitor.NetworkMonitor.register_on_change_callback" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">register_on_change_callback</span><span class="p">(</span><span class="n">on_network_change</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.network_monitor.NetworkMonitor.register_on_change_callback" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Register a callback to be called on stable network state changes.</p>
+<p>Note: Callbacks must be registered before the monitor is started.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_network_change</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Callable">Callable</span>[[<a class="autorefs autorefs-internal" title="              Snapshot(status, detail, changed_at)
+
+  
+      dataclass
+   (omgrab.runtime.network_monitor.Snapshot)" href="#omgrab.runtime.network_monitor.Snapshot">Snapshot</a>], None]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Callback function to register.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="RuntimeError">RuntimeError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the monitor has already started.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.network_monitor.NetworkMonitor.start" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">start</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.network_monitor.NetworkMonitor.start" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Start the monitor thread.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.network_monitor.NetworkMonitor.shutdown" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">shutdown</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.network_monitor.NetworkMonitor.shutdown" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Stop the monitor thread.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.network_monitor.NetworkMonitor.check_once" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">check_once</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.network_monitor.NetworkMonitor.check_once" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Run a connectivity check: local network, then internet reachability.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="omgrab.runtime.device_status" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>omgrab.runtime.device_status</code>
+
+
+<a href="#omgrab.runtime.device_status" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Centralized device status and system information manager.</p>
+<p>This module provides a single source of truth for all device state, system metrics,
+and operational status. Can be queried by a display module or external consumers.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.StateProvider" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>StateProvider</code>
+
+
+<a href="#omgrab.runtime.device_status.StateProvider" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="typing.Protocol">Protocol</span></code></p>
+
+
+
+        <p>Minimal interface for querying workflow state.</p>
+<p>Used by DeviceStatusManager to decouple from the full StateMachine.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.StateProvider.get_current_state" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_current_state</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.StateProvider.get_current_state" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the current workflow state as a string.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.StorageInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">StorageInfo</span><span class="p">(</span><span class="n">total_bytes</span><span class="p">,</span> <span class="n">used_bytes</span><span class="p">,</span> <span class="n">available_bytes</span><span class="p">,</span> <span class="n">used_percent</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.device_status.StorageInfo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Storage space information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.StorageInfo.total_bytes">total_bytes</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total storage capacity in bytes.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.StorageInfo.used_bytes">used_bytes</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Used storage in bytes.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.StorageInfo.available_bytes">available_bytes</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Available storage in bytes.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.StorageInfo.used_percent">used_percent</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Percentage of storage used (0-100).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.CPUInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">CPUInfo</span><span class="p">(</span><span class="n">temperature_celsius</span><span class="p">,</span> <span class="n">usage_percent</span><span class="p">,</span> <span class="n">usage_per_core</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.device_status.CPUInfo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>CPU metrics.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.CPUInfo.temperature_celsius">temperature_celsius</span></code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>CPU temperature in Celsius, or None if unavailable.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.CPUInfo.usage_percent">usage_percent</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Overall CPU usage percentage (0-100).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.CPUInfo.usage_per_core">usage_per_core</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Per-core usage percentages (0-100).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.CPUInfo.__str__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="fm">__str__</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.CPUInfo.__str__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return human-readable CPU status.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.MemoryInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">MemoryInfo</span><span class="p">(</span><span class="n">total_bytes</span><span class="p">,</span> <span class="n">used_bytes</span><span class="p">,</span> <span class="n">available_bytes</span><span class="p">,</span> <span class="n">used_percent</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.device_status.MemoryInfo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Memory usage information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.MemoryInfo.total_bytes">total_bytes</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total RAM in bytes.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.MemoryInfo.used_bytes">used_bytes</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Used RAM in bytes.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.MemoryInfo.available_bytes">available_bytes</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Available RAM in bytes.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.MemoryInfo.used_percent">used_percent</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Percentage of RAM used (0-100).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.MemoryInfo.__str__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="fm">__str__</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.MemoryInfo.__str__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return human-readable memory status.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.NetworkInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">NetworkInfo</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">wifi_ssid</span><span class="p">,</span> <span class="n">wifi_signal_strength</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.device_status.NetworkInfo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Network connectivity information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.NetworkInfo.status">status</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Connection state, one of 'offline', 'network_only', or 'online'.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.NetworkInfo.wifi_ssid">wifi_ssid</span></code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Connected WiFi network name, or None if not on WiFi.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.NetworkInfo.wifi_signal_strength">wifi_signal_strength</span></code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Signal strength in dBm (e.g. -62), or None if unavailable.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.RecordingInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">RecordingInfo</span><span class="p">(</span><span class="n">is_recording</span><span class="p">,</span> <span class="n">recording_id</span><span class="p">,</span> <span class="n">duration_seconds</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.device_status.RecordingInfo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Active recording information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.RecordingInfo.is_recording">is_recording</span></code></td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether a recording is currently in progress.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.RecordingInfo.recording_id">recording_id</span></code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Timestamp-based identifier for the active recording, or None.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.RecordingInfo.duration_seconds">duration_seconds</span></code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Elapsed recording time in seconds, or None if not recording.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.BatteryInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">BatteryInfo</span><span class="p">(</span><span class="n">percent</span><span class="p">,</span> <span class="n">voltage_v</span><span class="p">,</span> <span class="n">current_a</span><span class="p">,</span> <span class="n">power_w</span><span class="p">,</span> <span class="n">is_charging</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.device_status.BatteryInfo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Battery status information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.BatteryInfo.percent">percent</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Battery percentage (0-100).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.BatteryInfo.voltage_v">voltage_v</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Battery voltage in volts.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.BatteryInfo.current_a">current_a</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Current draw in amps (positive when charging).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.BatteryInfo.power_w">power_w</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Power consumption in watts.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.BatteryInfo.is_charging">is_charging</span></code></td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether the battery is currently charging.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.BatteryInfo.__str__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="fm">__str__</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.BatteryInfo.__str__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return human-readable battery status.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.DeviceStatus" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">DeviceStatus</span><span class="p">(</span><span class="n">device_id</span><span class="p">,</span> <span class="n">software_version</span><span class="p">,</span> <span class="n">uptime_seconds</span><span class="p">,</span> <span class="n">state_machine_state</span><span class="p">,</span> <span class="n">storage</span><span class="p">,</span> <span class="n">cpu</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">recording</span><span class="p">,</span> <span class="n">device_healthy</span><span class="p">,</span> <span class="n">device_error</span><span class="p">,</span> <span class="n">battery</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.device_status.DeviceStatus" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Complete device status snapshot.</p>
+<p>Aggregates all subsystem statuses into a single point-in-time reading,
+produced by DeviceStatusManager on each update cycle.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.device_id">device_id</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique identifier for this device.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.software_version">software_version</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Currently running software version string.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.uptime_seconds">uptime_seconds</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Seconds since the status manager started.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.state_machine_state">state_machine_state</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Current workflow state (e.g. 'idle', 'recording').</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.storage">storage</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              StorageInfo(total_bytes, used_bytes, available_bytes, used_percent)
+
+  
+      dataclass
+   (omgrab.runtime.device_status.StorageInfo)" href="#omgrab.runtime.device_status.StorageInfo">StorageInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Disk space metrics for the spool directory.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.cpu">cpu</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              CPUInfo(temperature_celsius, usage_percent, usage_per_core)
+
+  
+      dataclass
+   (omgrab.runtime.device_status.CPUInfo)" href="#omgrab.runtime.device_status.CPUInfo">CPUInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>CPU temperature and usage metrics.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.memory">memory</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              MemoryInfo(total_bytes, used_bytes, available_bytes, used_percent)
+
+  
+      dataclass
+   (omgrab.runtime.device_status.MemoryInfo)" href="#omgrab.runtime.device_status.MemoryInfo">MemoryInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>RAM usage metrics.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.network">network</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              NetworkInfo(status, wifi_ssid, wifi_signal_strength)
+
+  
+      dataclass
+   (omgrab.runtime.device_status.NetworkInfo)" href="#omgrab.runtime.device_status.NetworkInfo">NetworkInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Network connectivity and WiFi details.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.recording">recording</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              RecordingInfo(is_recording, recording_id, duration_seconds)
+
+  
+      dataclass
+   (omgrab.runtime.device_status.RecordingInfo)" href="#omgrab.runtime.device_status.RecordingInfo">RecordingInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Active recording state and duration.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.device_healthy">device_healthy</span></code></td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether the device is operating normally.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.device_error">device_error</span></code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Human-readable error description, or None if healthy.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.device_status.DeviceStatus.battery">battery</span></code></td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="              BatteryInfo(percent, voltage_v, current_a, power_w, is_charging)
+
+  
+      dataclass
+   (omgrab.runtime.device_status.BatteryInfo)" href="#omgrab.runtime.device_status.BatteryInfo">BatteryInfo</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Battery metrics, or None if no battery hardware is present.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.SystemMetricsProvider" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>SystemMetricsProvider</code>
+
+
+<a href="#omgrab.runtime.device_status.SystemMetricsProvider" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="typing.Protocol">Protocol</span></code></p>
+
+
+
+        <p>Interface for reading system-level hardware and OS metrics.</p>
+<p>The default implementation reads from Linux /proc and /sys filesystems.
+Inject an alternative for testing or non-Linux development hosts.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.SystemMetricsProvider.get_cpu_info" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_cpu_info</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_cpu_info" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get CPU temperature and usage information.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.SystemMetricsProvider.get_memory_info" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_memory_info</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_memory_info" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get memory usage information.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.SystemMetricsProvider.get_storage_info" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_storage_info</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_storage_info" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get storage space information for the given path.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.SystemMetricsProvider.get_wifi_info" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_wifi_info</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.SystemMetricsProvider.get_wifi_info" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get WiFi SSID and signal strength in dBm.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.device_status.DeviceStatusManager" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">DeviceStatusManager</span><span class="p">(</span><span class="n">device_id</span><span class="p">,</span> <span class="n">software_version</span><span class="p">,</span> <span class="n">spool_base_dir</span><span class="p">,</span> <span class="n">system_metrics</span><span class="p">,</span> <span class="n">enable_battery_monitor</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">status_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.device_status.DeviceStatusManager" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Manages and aggregates device status information from multiple sources.</p>
+
+        <p>Initialize the device status manager.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>device_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique device identifier.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>software_version</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Current software version.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>spool_base_dir</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Base directory for storage calculations.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>system_metrics</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            SystemMetricsProvider (omgrab.runtime.device_status.SystemMetricsProvider)" href="#omgrab.runtime.device_status.SystemMetricsProvider">SystemMetricsProvider</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Provider for system-level metrics (CPU, memory,
+storage, WiFi).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>enable_battery_monitor</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to enable battery monitoring.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>status_file</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="pathlib.Path">Path</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Path to write status JSON file for external readers.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.DeviceStatusManager.set_state_machine" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">set_state_machine</span><span class="p">(</span><span class="n">state_machine</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.device_status.DeviceStatusManager.set_state_machine" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set the state machine reference.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.DeviceStatusManager.set_recording_manager" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">set_recording_manager</span><span class="p">(</span><span class="n">recording_manager</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.device_status.DeviceStatusManager.set_recording_manager" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set the recording manager reference.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.DeviceStatusManager.set_network_monitor" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">set_network_monitor</span><span class="p">(</span><span class="n">network_monitor</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.device_status.DeviceStatusManager.set_network_monitor" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set the network monitor reference.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.DeviceStatusManager.start" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">start</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.DeviceStatusManager.start" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Start the background worker that updates status periodically.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.DeviceStatusManager.shutdown" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">shutdown</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.DeviceStatusManager.shutdown" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Stop the background worker.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.DeviceStatusManager.get_status" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_status</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.DeviceStatusManager.get_status" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get a complete snapshot of device status.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              DeviceStatus(device_id, software_version, uptime_seconds, state_machine_state, storage, cpu, memory, network, recording, device_healthy, device_error, battery)
+
+  
+      dataclass
+   (omgrab.runtime.device_status.DeviceStatus)" href="#omgrab.runtime.device_status.DeviceStatus">DeviceStatus</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DeviceStatus dataclass with all current information.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.device_status.DeviceStatusManager.get_status_dict" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_status_dict</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.device_status.DeviceStatusManager.get_status_dict" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the cached status dictionary.</p>
+<p>The status is updated every second by the background worker.
+This method returns the most recent cached value for fast access.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary representation of device status.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="omgrab.runtime.battery_monitor" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>omgrab.runtime.battery_monitor</code>
+
+
+<a href="#omgrab.runtime.battery_monitor" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Battery monitoring module for Waveshare UPS HAT B (INA219).</p>
+<p>This module provides battery status information including voltage, current,
+power consumption, and battery percentage for devices with the Waveshare UPS HAT B.</p>
+<p>Based on Waveshare's INA219 example code, adapted for this project's style.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.battery_monitor.BatteryStatus" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">BatteryStatus</span><span class="p">(</span><span class="n">voltage_v</span><span class="p">,</span> <span class="n">current_a</span><span class="p">,</span> <span class="n">power_w</span><span class="p">,</span> <span class="n">percent</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.battery_monitor.BatteryStatus" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Battery status information from the INA219 sensor.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.battery_monitor.BatteryStatus.voltage_v">voltage_v</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Load voltage in volts.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.battery_monitor.BatteryStatus.current_a">current_a</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Current draw in amps (positive when charging).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.battery_monitor.BatteryStatus.power_w">power_w</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Power consumption in watts.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.battery_monitor.BatteryStatus.percent">percent</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Estimated battery percentage (0-100).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.battery_monitor.BatteryStatus.__str__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="fm">__str__</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.battery_monitor.BatteryStatus.__str__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return human-readable battery status.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.battery_monitor.BatteryMonitor" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">BatteryMonitor</span><span class="p">(</span><span class="n">i2c_bus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">i2c_addr</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">min_voltage</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">max_voltage</span><span class="o">=</span><span class="mf">8.4</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.battery_monitor.BatteryMonitor" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Monitor battery status using INA219 chip on Waveshare UPS HAT B.</p>
+<p>The INA219 measures voltage, current, and power. Battery percentage is
+calculated based on voltage (6V = 0%, 8.4V = 100% for typical 2S Li-ion).</p>
+
+        <p>Initialize the battery monitor.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>i2c_bus</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>I2C bus number (default: 1).</p>
+              </div>
+            </td>
+            <td>
+                  <code>1</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>i2c_addr</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>I2C address of INA219 chip (default: 0x42 for UPS HAT B).</p>
+              </div>
+            </td>
+            <td>
+                  <code>66</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>min_voltage</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum battery voltage for 0% (default: 6.0V).</p>
+              </div>
+            </td>
+            <td>
+                  <code>6.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>max_voltage</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum battery voltage for 100% (default: 8.4V).</p>
+              </div>
+            </td>
+            <td>
+                  <code>8.4</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="omgrab.runtime.battery_monitor.BatteryMonitor.available" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">available</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omgrab.runtime.battery_monitor.BatteryMonitor.available" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>True if battery monitoring hardware is available.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.battery_monitor.BatteryMonitor.get_status" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get_status</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.battery_monitor.BatteryMonitor.get_status" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get current battery status.</p>
+<p>If the battery hardware is not available, this method will periodically
+attempt to reconnect (every 30 seconds by default).</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="              BatteryStatus(voltage_v, current_a, power_w, percent)
+
+  
+      dataclass
+   (omgrab.runtime.battery_monitor.BatteryStatus)" href="#omgrab.runtime.battery_monitor.BatteryStatus">BatteryStatus</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>BatteryStatus with current measurements, or None if battery monitoring</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="              BatteryStatus(voltage_v, current_a, power_w, percent)
+
+  
+      dataclass
+   (omgrab.runtime.battery_monitor.BatteryStatus)" href="#omgrab.runtime.battery_monitor.BatteryStatus">BatteryStatus</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>is not available or read fails.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="omgrab.runtime.gpio_manager" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>omgrab.runtime.gpio_manager</code>
+
+
+<a href="#omgrab.runtime.gpio_manager" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>GPIO management for button monitoring and connection status.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.gpio_manager.ButtonConfig" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">ButtonConfig</span><span class="p">(</span><span class="n">long_press_threshold_s</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">double_press_window_s</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">check_interval_s</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#omgrab.runtime.gpio_manager.ButtonConfig" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Configuration for button press detection.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.gpio_manager.ButtonConfig.long_press_threshold_s">long_press_threshold_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Hold duration to trigger WiFi reconfiguration.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.gpio_manager.ButtonConfig.double_press_window_s">double_press_window_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Window after a first tap in which a second tap
+counts as a double-press. Only used in IDLE state.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omgrab.runtime.gpio_manager.ButtonConfig.check_interval_s">check_interval_s</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>How often to poll the button GPIO (seconds).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="omgrab.runtime.gpio_manager.button_monitor_loop" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">button_monitor_loop</span><span class="p">(</span><span class="n">gpio_controller</span><span class="p">,</span> <span class="n">state_machine_obj</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_wifi_setup_complete</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_button_press</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_wifi_hotspot_started</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wifi_manager</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.gpio_manager.button_monitor_loop" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Monitor button presses and delegate to state machine.</p>
+<p>Short press: Start/stop recording (handled by state machine)
+Double press (IDLE only): Camera preview (handled by state machine)
+Long press (5+ seconds): Trigger WiFi reconfiguration portal</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>gpio_controller</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              GPIOController() (omgrab.gpio.gpio.GPIOController)" href="../gpio/#omgrab.gpio.gpio.GPIOController">GPIOController</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>GPIO controller instance.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>state_machine_obj</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              StateMachine(gpio_controller, recording_manager) (omgrab.workflows.state_machine.StateMachine)" href="../workflows/#omgrab.workflows.state_machine.StateMachine">StateMachine</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>State machine for managing workflow.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>config</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="              ButtonConfig(long_press_threshold_s=5.0, double_press_window_s=0.5, check_interval_s=0.02)
+
+  
+      dataclass
+   (omgrab.runtime.gpio_manager.ButtonConfig)" href="#omgrab.runtime.gpio_manager.ButtonConfig">ButtonConfig</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Button detection configuration.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_wifi_setup_complete</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="collections.abc.Callable">Callable</span>[[<span title="bool">bool</span>], None]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional callback invoked when WiFi setup completes.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_button_press</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="collections.abc.Callable">Callable</span>[[], None]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional callback invoked on any button press (rising edge).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_wifi_hotspot_started</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="collections.abc.Callable">Callable</span>[[], None]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional callback invoked when WiFi hotspot is started.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>wifi_manager</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="              WifiManager(start_container, stop_container, is_running) (omgrab.runtime.wifi_connect.WifiManager)" href="#omgrab.runtime.wifi_connect.WifiManager">WifiManager</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional WifiManager instance for WiFi setup. If None,
+long-press and WiFi cancel are no-ops.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="omgrab.runtime.wifi_connect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>omgrab.runtime.wifi_connect</code>
+
+
+<a href="#omgrab.runtime.wifi_connect" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>WiFi Connect manager with injectable container management functions.</p>
+<p>The WifiManager class owns the WiFi setup lifecycle (state transitions,
+callbacks) but delegates container operations to injected
+functions. This allows the SDK to be independent of Docker while
+applications can provide Docker-specific implementations.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="omgrab.runtime.wifi_connect.WifiManager" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">WifiManager</span><span class="p">(</span><span class="n">start_container</span><span class="p">,</span> <span class="n">stop_container</span><span class="p">,</span> <span class="n">is_running</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.wifi_connect.WifiManager" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Manages WiFi setup lifecycle with injectable container functions.</p>
+<p>The manager orchestrates the WiFi provisioning flow:
+1. Check if the WiFi setup service is already running.
+2. Start it via the injected function.
+3. Wait for completion (via the start function's blocking behavior).
+4. Invoke a callback when complete.</p>
+<p>Container-specific logic (Docker API calls, process management, etc.)
+is provided by the caller via the constructor arguments.</p>
+
+        <p>Initialize the WiFi manager.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>start_container</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Callable">Callable</span>[[<span title="bool">bool</span>, <span title="typing.Optional">Optional</span>[<span title="collections.abc.Callable">Callable</span>[[<span title="bool">bool</span>], None]]], <span title="bool">bool</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Function to start the WiFi setup service.
+Signature: (force_mode, callback) -&gt; bool.
+Should return True if the service was started, False otherwise.
+The callback (if provided) should be invoked with True/False
+when the service completes.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>stop_container</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Callable">Callable</span>[[], <span title="bool">bool</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Function to stop the WiFi setup service.
+Should return True if stopped, False otherwise.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>is_running</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Callable">Callable</span>[[], <span title="bool">bool</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Function to check if the service is currently running.
+Should return True if running, False otherwise.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.wifi_connect.WifiManager.start_wifi_connect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">start_wifi_connect</span><span class="p">(</span><span class="n">force_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#omgrab.runtime.wifi_connect.WifiManager.start_wifi_connect" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Start the WiFi setup service.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>force_mode</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, forces the portal to start even if WiFi
+is connected.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>callback</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="collections.abc.Callable">Callable</span>[[<span title="bool">bool</span>], None]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional callback invoked when WiFi setup completes.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if the service was started, False otherwise.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.wifi_connect.WifiManager.stop_wifi_connect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">stop_wifi_connect</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.wifi_connect.WifiManager.stop_wifi_connect" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Stop the WiFi setup service if running.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if the service was stopped, False otherwise.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="omgrab.runtime.wifi_connect.WifiManager.is_wifi_connect_running" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">is_wifi_connect_running</span><span class="p">()</span></code>
+
+<a href="#omgrab.runtime.wifi_connect.WifiManager.is_wifi_connect_running" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Check if the WiFi setup service is currently running.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if running, False otherwise.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.sections", "navigation.expand", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
