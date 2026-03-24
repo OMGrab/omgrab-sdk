@@ -479,18 +479,15 @@ class _RecordingPipelineRunner(_PipelineRunner):
         if self._total_frames <= self._config.warmup_frames:
             return
 
-        # Use hardware timestamps from each camera (Sync node aligns them
-        # temporally). getTimestamp() returns a timedelta from device boot;
-        # convert to absolute datetime via pipeline start reference time.
-        rgb_device_timedelta = rgb_capture.getTimestamp()
-        depth_device_timedelta = depth_capture.getTimestamp()
-
-        if self._pipeline_start_reference_time is not None:
-            rgb_timestamp = self._pipeline_start_reference_time + rgb_device_timedelta
-            depth_timestamp = self._pipeline_start_reference_time + depth_device_timedelta
-        else:
-            rgb_timestamp = datetime.datetime.now()
-            depth_timestamp = rgb_timestamp
+        # Derive a single sync timestamp from the RGB frame for all streams.
+        # The Sync node guarantees temporal alignment, so one base timestamp
+        # keeps RGB, depth, and IMU PTS values in the same clock domain.
+        # getTimestamp() returns a timedelta from device boot; convert to
+        # absolute datetime via pipeline start reference time.
+        assert self._pipeline_start_reference_time is not None
+        sync_timestamp = (
+            self._pipeline_start_reference_time
+            + rgb_capture.getTimestamp())
 
         # Process RGB frame (flip -1 = 180-degree rotation for upside-down mount)
         rgb_frame = rgb_capture.getCvFrame()
@@ -502,17 +499,16 @@ class _RecordingPipelineRunner(_PipelineRunner):
         depth_frame = cv2.flip(depth_frame, -1)
         depth_frame = depth_frame.astype(np.uint16)
 
-        # Put frames into output queues with their individual timestamps
         rgb_dropped = False
         depth_dropped = False
 
         try:
-            self._output_rgb_queue.put((rgb_frame, rgb_timestamp), block=False)
+            self._output_rgb_queue.put((rgb_frame, sync_timestamp), block=False)
         except queue.Full:
             rgb_dropped = True
 
         try:
-            self._output_depth_queue.put((depth_frame, depth_timestamp), block=False)
+            self._output_depth_queue.put((depth_frame, sync_timestamp), block=False)
         except queue.Full:
             depth_dropped = True
 
@@ -520,7 +516,7 @@ class _RecordingPipelineRunner(_PipelineRunner):
         if self._imu_enabled and self._output_imu_queue is not None:
             imu_message = synced_msg[self._IMU_STREAM_NAME]
             if imu_message is not None:
-                self._enqueue_imu_data(imu_message)
+                self._enqueue_imu_data(imu_message, sync_timestamp)
 
         # Track drops (count as single frame drop if either was dropped)
         if rgb_dropped or depth_dropped:
@@ -537,13 +533,21 @@ class _RecordingPipelineRunner(_PipelineRunner):
             logger.info('Detected OAK-D device type: %s', device_type.value)
             self._on_device_type_detected(device_type)
 
-    def _enqueue_imu_data(self, imu_message: dai.IMUData):
+    def _enqueue_imu_data(
+            self,
+            imu_message: dai.IMUData,
+            sync_timestamp: datetime.datetime):
         """Batch IMU readings from a sync group and enqueue as a single item.
 
         All readings in the message are serialized as a JSON array and pushed
         to the IMU queue as one item. Each reading includes a 'dt' field with
-        the millisecond offset from the first reading's timestamp, preserving
-        per-reading timing while drastically reducing queue throughput.
+        the millisecond offset from the first reading's own timestamp,
+        preserving per-reading timing while drastically reducing queue
+        throughput.
+
+        The batch is stamped with the sync group's shared timestamp (derived
+        from the RGB frame) so that the IMU PTS stays in the same clock
+        domain as video streams.
 
         The camera is physically installed upside-down (180-degree rotation
         around the optical axis) for cable management. The video frames are
@@ -552,29 +556,23 @@ class _RecordingPipelineRunner(_PipelineRunner):
 
         Args:
             imu_message: DepthAI IMUData message containing batched readings.
+            sync_timestamp: Shared timestamp from the Sync node group.
         """
         readings = []
-        first_timestamp: Optional[datetime.datetime] = None
+        first_imu_timedelta: Optional[datetime.timedelta] = None
 
         for packet in imu_message.packets:
             accel = packet.acceleroMeter
             gyro = packet.gyroscope
 
-            # Convert device timedelta to absolute datetime.
-            # The timestamp lives on the individual report objects, not on
-            # IMUPacket itself. Use the accelerometer report's host-synced
-            # timestamp (getTimestamp, not getTimestampDevice) to match the
-            # same clock domain as video frame timestamps.
+            # Use the accelerometer's own timedelta only for computing
+            # intra-batch dt offsets. The absolute batch timestamp comes
+            # from sync_timestamp to avoid IMU/camera clock domain mismatch.
             imu_timedelta = accel.getTimestamp()
-            if self._pipeline_start_reference_time is not None:
-                imu_timestamp = self._pipeline_start_reference_time + imu_timedelta
-            else:
-                imu_timestamp = datetime.datetime.now()
+            if first_imu_timedelta is None:
+                first_imu_timedelta = imu_timedelta
 
-            if first_timestamp is None:
-                first_timestamp = imu_timestamp
-
-            dt_ms = (imu_timestamp - first_timestamp).total_seconds() * 1000
+            dt_ms = (imu_timedelta - first_imu_timedelta).total_seconds() * 1000
 
             # Negate X and Y for 180-degree physical rotation
             # (matches the cv2.flip(0) + cv2.flip(1) applied to video).
@@ -590,10 +588,10 @@ class _RecordingPipelineRunner(_PipelineRunner):
             return
 
         payload = json.dumps(readings, separators=(',', ':')).encode('utf-8')
-        if self._output_imu_queue is None or first_timestamp is None:
+        if self._output_imu_queue is None:
             return
         try:
-            self._output_imu_queue.put((payload, first_timestamp), block=False)
+            self._output_imu_queue.put((payload, sync_timestamp), block=False)
         except queue.Full:
             pass  # IMU drops are silent; video drops already track the issue
 
