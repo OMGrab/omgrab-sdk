@@ -254,13 +254,12 @@ class VideoStreamEncoder:
             frame = np.expand_dims(frame, axis=2)
 
         relative_time_s = timestamp_s - self._timestamp_origin_s
-        assert self._stream.time_base is not None
-        pts = max(0, int(relative_time_s * self._stream.time_base.denominator))
+        pts = max(0, int(relative_time_s * TIME_BASE.denominator))
 
         video_frame = av.VideoFrame.from_ndarray(
             frame, format=self._input_pixel_format, channel_last=True)
         video_frame.pts = pts
-        video_frame.time_base = self._stream.time_base
+        video_frame.time_base = TIME_BASE
 
         return list(self._stream.encode(video_frame))
 
@@ -316,13 +315,13 @@ class DataStreamEncoder:
             A single-element list containing the packet.
         """
         relative_time_s = timestamp_s - self._timestamp_origin_s
-        assert self._stream.time_base is not None
-        pts = max(0, int(relative_time_s * self._stream.time_base.denominator))
+        pts = max(0, int(relative_time_s * TIME_BASE.denominator))
 
         packet = av.Packet(data)
         packet.stream = self._stream
         packet.pts = pts
         packet.dts = pts
+        packet.time_base = TIME_BASE
         return [packet]
 
     def flush(self) -> list[av.Packet]:
