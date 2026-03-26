@@ -54,7 +54,7 @@ class USBCamera(cameras.Camera[cameras.RGBFrame]):
         if not self._cap.isOpened():
             raise RuntimeError(
                 f'Failed to open USB camera at {device_path}')
-        self._cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+        self._cap.set(cv2.CAP_PROP_BUFFERSIZE, 2)
         self._cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         self._cap.set(cv2.CAP_PROP_FRAME_WIDTH, self._config.width)
         self._cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self._config.height)
